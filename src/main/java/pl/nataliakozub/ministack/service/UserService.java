@@ -3,12 +3,10 @@ package pl.nataliakozub.ministack.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
 import pl.nataliakozub.ministack.entity.UserEntity;
 import pl.nataliakozub.ministack.repository.UserRepository;
-import pl.nataliakozub.model.LoginForm;
-import pl.nataliakozub.model.RegisterForm;
-import org.springframework.security.crypto.bcrypt.BCrypt;
+import pl.nataliakozub.model.form.LoginForm;
+import pl.nataliakozub.model.form.RegisterForm;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.Optional;

@@ -1,7 +1,7 @@
 package pl.nataliakozub.ministack.entity;
 
 import lombok.Data;
-import pl.nataliakozub.model.RegisterForm;
+import pl.nataliakozub.model.form.RegisterForm;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

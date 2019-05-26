@@ -1,4 +1,4 @@
-package pl.nataliakozub.model;
+package pl.nataliakozub.model.form;
 
 import lombok.Data;
 

@@ -7,10 +7,9 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import pl.nataliakozub.ministack.service.SessionService;
 import pl.nataliakozub.ministack.service.UserService;
-import pl.nataliakozub.model.LoginForm;
-import pl.nataliakozub.model.RegisterForm;
+import pl.nataliakozub.model.form.LoginForm;
+import pl.nataliakozub.model.form.RegisterForm;
 
 import javax.validation.Valid;
 
