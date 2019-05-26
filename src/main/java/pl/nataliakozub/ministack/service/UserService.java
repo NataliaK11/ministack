@@ -18,8 +18,11 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    public boolean registerUser(RegisterForm registerForm){
-        if(userRepository.existsByEmail(registerForm.getEmail())){
+    @Autowired
+    SessionService sessionService;
+
+    public boolean registerUser(RegisterForm registerForm) {
+        if (userRepository.existsByEmail(registerForm.getEmail())) {
             return false;
         }
         String passwordHash = getBCrypt().encode(registerForm.getPassword());
@@ -29,10 +32,12 @@ public class UserService {
         return true;
 
     }
+
     @Bean
     public BCryptPasswordEncoder getBCrypt() {
         return new BCryptPasswordEncoder();
     }
+
     public boolean tryLoginUser(LoginForm loginForm) {
         //sprawdzanie po emialu czy jest zajety (nie bedzie dzialac bez transakcji)
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -40,8 +45,14 @@ public class UserService {
             Optional<UserEntity> userFromBD = userRepository.findByEmail(loginForm.getEmail());
             String passwordHash = getBCrypt().encode(loginForm.getPassword());
 
-            if(passwordEncoder.matches(loginForm.getPassword(),userFromBD.get().getPassword()))
+            boolean passwordMatches = passwordEncoder.matches(loginForm.getPassword(), userFromBD.get().getPassword());
+            if (passwordMatches) {
+                sessionService.setLogin(true);
+                sessionService.setNickname(userFromBD.get().getNickname());
+                sessionService.setUserId(userFromBD.get().getId());
                 return true;
+            }
+
         }
         return false;
 
