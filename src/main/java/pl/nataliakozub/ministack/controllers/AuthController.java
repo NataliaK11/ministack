@@ -7,6 +7,8 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.nataliakozub.ministack.service.SessionService;
 import pl.nataliakozub.ministack.service.UserService;
 import pl.nataliakozub.model.form.LoginForm;
 import pl.nataliakozub.model.form.RegisterForm;
@@ -18,6 +20,9 @@ public class AuthController {
 
     @Autowired
     UserService userService;
+
+    @Autowired
+    SessionService sessionService;
 
     @GetMapping("/user/register")
     public String register(Model model) {
@@ -54,6 +59,7 @@ public class AuthController {
     public String login(@ModelAttribute("loginForm")@Valid LoginForm loginForm,
                         BindingResult bindingResult,
                         Model model){
+
         if(bindingResult.hasErrors()) {
             model.addAttribute("error", "błąd wprowadzania danych!");
             return "login";
@@ -67,7 +73,12 @@ public class AuthController {
         return "login";
 
     }
-
+    @GetMapping("/user/logout")
+    public String logout(RedirectAttributes redirectAttributes) {
+        sessionService.setLogin(false);
+        redirectAttributes.addFlashAttribute("logout", "Wylogowano");
+        return "redirect:/user/login";
+    }
 
 }
 

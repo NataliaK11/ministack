@@ -41,8 +41,6 @@ public class UserService {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         if (userRepository.existsByEmail(loginForm.getEmail())) {
             Optional<UserEntity> userFromBD = userRepository.findByEmail(loginForm.getEmail());
-            String passwordHash = getBCrypt().encode(loginForm.getPassword());
-
             boolean passwordMatches = passwordEncoder.matches(loginForm.getPassword(), userFromBD.get().getPassword());
             if (passwordMatches) {
                 sessionService.setLogin(true);
