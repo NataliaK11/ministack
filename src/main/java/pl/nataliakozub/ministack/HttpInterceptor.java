@@ -7,6 +7,7 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import pl.nataliakozub.ministack.service.SessionService;
+import pl.nataliakozub.ministack.service.UserService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -15,6 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 public class HttpInterceptor implements HandlerInterceptor, WebMvcConfigurer {
     @Autowired
     SessionService sessionService;
+    @Autowired
+    UserService userService;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
@@ -25,6 +28,7 @@ public class HttpInterceptor implements HandlerInterceptor, WebMvcConfigurer {
     public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
        if(modelAndView !=null)
         modelAndView.addObject("userSession",sessionService);
+       modelAndView.addObject("adminSession", sessionService);
 
     }
 

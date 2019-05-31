@@ -46,6 +46,8 @@ public class UserService {
                 sessionService.setLogin(true);
                 sessionService.setNickname(userFromBD.get().getNickname());
                 sessionService.setUserId(userFromBD.get().getId());
+                if(isAdmin(loginForm))
+                    sessionService.setAdmin(true);
                 return true;
             }
 
@@ -53,5 +55,15 @@ public class UserService {
         return false;
 
     }
+
+    public boolean isAdmin(LoginForm loginForm){
+        Optional <UserEntity> userEntity=userRepository.findByEmail(loginForm.getEmail()) ;
+        if(userEntity.get().getType()!=null) {
+            sessionService.setAdmin(true);
+            return true;
+        }else return false;
+    }
+
+
 
 }

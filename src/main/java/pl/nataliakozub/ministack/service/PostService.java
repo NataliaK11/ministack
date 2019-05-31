@@ -33,4 +33,7 @@ public class PostService {
     public Iterable<PostEnity> getAllPosts(){
         return postRepository.findTop10ByOrderByIdDesc();
     }
+    public boolean deletePostById(int id){
+        return postRepository.deleteAllById(id);
+    }
 }

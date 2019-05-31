@@ -9,4 +9,5 @@ public interface PostRepository extends CrudRepository<PostEnity,Integer> {
 
  //   @Query(nativeQuery = true, value = "SELECT * FROM post WHERE user_id=?1")
  //   Iterable<PostEnity> findAllUsersPosts(int userId);
+    boolean deleteAllById(int id);
 }

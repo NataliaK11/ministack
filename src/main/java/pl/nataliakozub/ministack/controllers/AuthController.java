@@ -66,18 +66,26 @@ public class AuthController {
         }
         boolean isLogged=userService.tryLoginUser(loginForm);
         model.addAttribute("isLogged",isLogged);
+//       boolean isAdmin=userService.isAdmin(loginForm);
+//       if(isLogged&&isAdmin) {
+//           return "redirect:/user/admin";
         if (isLogged){
-
             return "redirect:/user/dashboard";
-        }
-        return "login";
+        }else return "login";
 
     }
     @GetMapping("/user/logout")
     public String logout(RedirectAttributes redirectAttributes) {
         sessionService.setLogin(false);
+        sessionService.setAdmin(false);
         redirectAttributes.addFlashAttribute("logout", "Wylogowano");
         return "redirect:/user/login";
+    }
+
+    @GetMapping("/user/admin")
+    public String admin(RedirectAttributes redirectAttributes){
+        redirectAttributes.addFlashAttribute("isAdmin","Zalogowano jako admin");
+        return "redirect:/user/dashboard";
     }
 
 }

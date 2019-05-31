@@ -12,4 +12,5 @@ public class SessionService {
     private int userId;
     private String nickname;
     private boolean isLogin;
+    private boolean isAdmin;
 }
