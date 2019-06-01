@@ -1,10 +1,11 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:spring="http://java.sun.com/xml/ns/javaee">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
 
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 </head>
 <body>
 <th:block th:replace="inc/nav :: nav"></th:block>
@@ -16,32 +17,35 @@
         <div th:if="${postDeleted}" th:text="${postDeleted}" class="alert alert-success" role="alert"></div>
 
 
-
         <br/>
 
 
-                <th:block th:each="post : ${posts}">
+        <th:block th:each="post : ${posts}">
 
-                    <div class="card">
-                    <h5 class="card-header"th:text="${post.getTitle()}"></h5>
+            <div class="card">
+                <h5 class="card-header" th:text="${post.getTitle()}"></h5>
                 <div class="card-body">
                     <h5 class="card-title">Author: <b th:text="${post.getUser().getNickname()}"></b></h5>
                     <p class="card-text" style="overflow:hidden;" th:text="${post.getContent()}"></p>
-                    <a href="#" class="btn btn-primary">Comment</a>
-                    <td> <div th:if="${userSession.getAccountType().name()=='ADMIN'}">
-                    <a th:href="${'/post/delete/' + post.getId()}" class="btn btn-danger">Delete</a>
+                    <a th:href="${'/post/details/' + post.getId()}" class="btn btn-primary">Comment</a>
+                    <td>
+                        <div th:if="${userSession.getAccountType().name()=='ADMIN'}">
+                            <a th:href="${'/post/delete/' + post.getId()}" class="btn btn-danger">Delete</a>
 
-                    </div> <br/>
+                        </div>
+                        <br/>
 
-                </div></td>
+                </div>
+                </td>
                 <div class="card-footer">
-                    <small class="text-muted">Data dodania: <strong th:text="${post.getCreationTime()}"></strong></small>
+                    <small class="text-muted">Data dodania: <strong th:text="${post.getCreationTime()}"></strong>
+                    </small>
                     <small class="text-muted">Ostatni komentarz: 5 minut temu</small>
                 </div>
 
-            <br/>
-        </div>
-                </th:block>
+                <br/>
+            </div>
+        </th:block>
     </div>
 </center>
 </body>

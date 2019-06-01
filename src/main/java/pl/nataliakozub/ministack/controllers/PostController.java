@@ -8,20 +8,21 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import pl.nataliakozub.ministack.entity.UserEntity;
 import pl.nataliakozub.ministack.service.PostService;
 import pl.nataliakozub.ministack.service.SessionService;
+import pl.nataliakozub.model.form.CommentForm;
 import pl.nataliakozub.model.form.PostForm;
 
 @Controller
 public class PostController {
 
-@Autowired
+    @Autowired
     PostService postService;
 
-@Autowired
+    @Autowired
     SessionService sessionService;
 
     @GetMapping("/post/add")
     public String addPost(Model model) {
-        if(!sessionService.isLogin())
+        if (!sessionService.isLogin())
             return "redirect:/user/login";
         model.addAttribute("postForm", new PostForm());
         return "post/add_post";
@@ -30,26 +31,44 @@ public class PostController {
     @PostMapping("/post/add")
 
     public String addPost(@ModelAttribute PostForm postForm,
-                          RedirectAttributes redirectAttributes){
+                          RedirectAttributes redirectAttributes) {
         postService.addPost(postForm);
 
-        redirectAttributes.addFlashAttribute("info","Dodano nowy post");
+        redirectAttributes.addFlashAttribute("info", "Dodano nowy post");
         return "redirect:/user/dashboard";
     }
 
 
     @GetMapping("/post/delete/{id}")
-    public String deletePost(@PathVariable ("id")  int id, RedirectAttributes redirectAttributes) {
+    public String deletePost(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 
         //logger.debug("Delete user with Id {}", idx);
 
 
-        if(sessionService.getAccountType()!= UserEntity.AccountType.ADMIN){
+        if (sessionService.getAccountType() != UserEntity.AccountType.ADMIN) {
             return "redirect:/user/dashboard";
         }
         redirectAttributes.addFlashAttribute("postDeleted", "Usunięto post");
         postService.deletePostById(id);
         return "redirect:/user/dashboard";
+    }
+
+    @GetMapping("/post/details/{id}")
+    public String details(@PathVariable("id") int id,
+                          Model model) {
+        model.addAttribute("post", postService.getPost(id));
+        model.addAttribute("commentForm", new CommentForm());
+        model.addAttribute("comments", postService.getAllComments(id));
+        return "post/post_details";
+    }
+
+    @PostMapping("/comment/add/{id}")
+    public String addCommrnt(@ModelAttribute CommentForm commentForm,
+                             @PathVariable("id") int id) {
+
+        postService.addComment(commentForm, id, postService.getPost(id).getUser().getId());
+        return "redirect:/post/details/" + id;
+
     }
 
 }

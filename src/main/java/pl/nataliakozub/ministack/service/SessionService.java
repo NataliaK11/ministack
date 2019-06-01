@@ -14,6 +14,5 @@ public class SessionService {
     private int userId;
     private String nickname;
     private boolean isLogin;
-   // private boolean isAdmin;
     private UserEntity.AccountType accountType;
 }

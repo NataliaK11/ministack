@@ -31,10 +31,10 @@ public class AuthController {
     }
 
     @PostMapping("/user/register")
-    public String register(@ModelAttribute("registerForm")@Valid RegisterForm registerForm,
+    public String register(@ModelAttribute("registerForm") @Valid RegisterForm registerForm,
                            BindingResult bindingResult,
                            Model model) {
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("error", "Błąd wprowadzania danych!!");
             return "register";
         }
@@ -42,39 +42,41 @@ public class AuthController {
 
         boolean isRegistered = userService.registerUser(registerForm);
         if (isRegistered) {
-            return "redirect:login";
+            return "redirect:/user/login";
+        } else {
+            registerForm.setPassword("");
+            model.addAttribute("isRegistered", isRegistered);
+            return "register";
         }
-        registerForm.setPassword("");
-        model.addAttribute("isRegistered", isRegistered);
-        return "register";
     }
 
-    @GetMapping ("/user/login")
-    public String login(Model model){
-        model.addAttribute("loginForm",new LoginForm());
+    @GetMapping("/user/login")
+    public String login(Model model) {
+        model.addAttribute("loginForm", new LoginForm());
         return "login";
     }
 
-    @PostMapping ("/user/login")
-    public String login(@ModelAttribute("loginForm")@Valid LoginForm loginForm,
+    @PostMapping("/user/login")
+    public String login(@ModelAttribute("loginForm") @Valid LoginForm loginForm,
                         BindingResult bindingResult,
-                        Model model){
+                        Model model) {
 
-        if(bindingResult.hasErrors()) {
+        if (bindingResult.hasErrors()) {
             model.addAttribute("error", "błąd wprowadzania danych!");
             return "login";
         }
-        boolean isLogged=userService.tryLoginUser(loginForm);
-        model.addAttribute("isLogged",isLogged);
-        if (isLogged){
+        boolean isLogged = userService.tryLoginUser(loginForm);
+        model.addAttribute("isLogged", isLogged);
+        if (isLogged) {
             return "redirect:/user/dashboard";
-        }else return "login";
+        } else return "login";
 
     }
+
     @GetMapping("/user/logout")
     public String logout(RedirectAttributes redirectAttributes) {
         sessionService.setLogin(false);
-      //  sessionService.setAdmin(false);
+        //  sessionService.setAdmin(false);
         redirectAttributes.addFlashAttribute("logout", "Wylogowano");
         return "redirect:/user/login";
     }

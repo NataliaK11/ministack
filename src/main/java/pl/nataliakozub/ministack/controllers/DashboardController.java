@@ -11,21 +11,19 @@ import pl.nataliakozub.ministack.service.UserService;
 
 @Controller
 public class DashboardController {
-@Autowired
+    @Autowired
     SessionService sessionService;
 
-@Autowired
+    @Autowired
     PostService postService;
-@Autowired
+    @Autowired
     UserService userService;
 
     @GetMapping("/user/dashboard")
-    public String dashboard(Model model){
+    public String dashboard(Model model) {
         if (!sessionService.isLogin())
             return "redirect:/user/login";
-//      if(sessionService.isAdmin())
-//        model.addAttribute("isAdmin","logged as admin");
-        model.addAttribute("posts",postService.getAllPosts());
+        model.addAttribute("posts", postService.getAllPosts());
         return "dashboard";
     }
 
