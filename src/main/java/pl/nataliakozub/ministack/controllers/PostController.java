@@ -42,9 +42,6 @@ public class PostController {
     @GetMapping("/post/delete/{id}")
     public String deletePost(@PathVariable("id") int id, RedirectAttributes redirectAttributes) {
 
-        //logger.debug("Delete user with Id {}", idx);
-
-
         if (sessionService.getAccountType() != UserEntity.AccountType.ADMIN) {
             return "redirect:/user/dashboard";
         }
@@ -66,9 +63,19 @@ public class PostController {
     public String addCommrnt(@ModelAttribute CommentForm commentForm,
                              @PathVariable("id") int id) {
 
-        postService.addComment(commentForm, id, postService.getPost(id).getUser().getId());
+        postService.addComment(commentForm, id, sessionService.getUserId());
         return "redirect:/post/details/" + id;
 
+    }
+    @GetMapping("/comment/delete/{commentId}/{postId}")
+    public String deleteComment(@PathVariable("commentId") int commentId,
+                                @PathVariable("postId") int postId,
+                                RedirectAttributes redirectAttributes) {
+
+
+        redirectAttributes.addFlashAttribute("commentDeleted", "Usunięto post");
+        postService.deleteCommentById(commentId);
+        return "redirect:/post/details/"+postId;
     }
 
 }

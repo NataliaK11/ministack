@@ -16,8 +16,6 @@ public class DashboardController {
 
     @Autowired
     PostService postService;
-    @Autowired
-    UserService userService;
 
     @GetMapping("/user/dashboard")
     public String dashboard(Model model) {
@@ -26,5 +24,4 @@ public class DashboardController {
         model.addAttribute("posts", postService.getAllPosts());
         return "dashboard";
     }
-
 }

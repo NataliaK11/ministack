@@ -72,5 +72,8 @@ public class PostService {
     }
 
 
+    public void deleteCommentById(int commentId) {
+        commentRepository.deleteById(commentId);
+    }
 }
 

@@ -41,4 +41,5 @@ public class HttpInterceptor implements HandlerInterceptor, WebMvcConfigurer {
         registry.addInterceptor(this);
 
     }
+
 }

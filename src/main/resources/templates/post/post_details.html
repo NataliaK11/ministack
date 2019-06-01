@@ -36,7 +36,10 @@
                         <small class="text-muted">Data dodania i autor: <strong
                                 th:text="${comment.getCreationTime() + '/' + comment.getUser().getNickname()}"></strong>
                         </small>
+                        <a th:if="${userSession.getUserId()==comment.getUser().getId()}" th:href="${'/comment/delete/' + comment.getId() + '/' + comment.getPost().getId()}" class="btn btn-danger">Delete</a>
                     </div>
+
+
 
                 </div>
             </th:block>
