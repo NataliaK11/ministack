@@ -9,23 +9,29 @@ import org.hibernate.annotations.ValueGenerationType;
 import org.hibernate.validator.constraints.SafeHtml;
 import pl.nataliakozub.model.form.RegisterForm;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 import java.security.Identity;
 
 @Entity
 @Table(name = "user")
 @Data
 public class UserEntity {
+
+    public enum AccountType{
+        ADMIN, MODERATOR,USER;
+    }
     @Id
     @GeneratedValue
     private int id;
     private String email;
     private String nickname;
     private String password;
-    private String type;
+   // private String type;
+@Column(name= "account_type")
+
+@Enumerated(EnumType.STRING)
+private AccountType accountType;
+
 
 public UserEntity() {};
 

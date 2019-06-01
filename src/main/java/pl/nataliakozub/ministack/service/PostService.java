@@ -34,8 +34,6 @@ public class PostService {
         return postRepository.findTop10ByOrderByIdDesc();
     }
     public void deletePostById(int id){
-        postRepository.deleteAllById(id);
-
-
+        postRepository.deleteById(id);
     }
 }

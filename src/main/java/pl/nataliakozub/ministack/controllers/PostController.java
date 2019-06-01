@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
+import pl.nataliakozub.ministack.entity.UserEntity;
 import pl.nataliakozub.ministack.service.PostService;
 import pl.nataliakozub.ministack.service.SessionService;
 import pl.nataliakozub.model.form.PostForm;
@@ -37,14 +38,20 @@ public class PostController {
     }
 
 
-    @GetMapping("/post/{id}/delete")
-    public String deletePost(@PathVariable  String id, RedirectAttributes redirectAttributes) {
+    @GetMapping("/post/delete/{id}")
+    public String deletePost(@PathVariable ("id")  int id, RedirectAttributes redirectAttributes) {
 
         //logger.debug("Delete user with Id {}", idx);
 
-        redirectAttributes.addFlashAttribute("postDeleted", "Usunięto post");
 
-       //postService.deletePostById(id);
+        if(sessionService.getAccountType()!= UserEntity.AccountType.ADMIN){
+            return "redirect:/user/dashboard";
+        }
+        redirectAttributes.addFlashAttribute("postDeleted", "Usunięto post");
+        postService.deletePostById(id);
         return "redirect:/user/dashboard";
     }
+
 }
+
+//12(3), 14(1), 15(2), 16(1), 17(1), singelton -1

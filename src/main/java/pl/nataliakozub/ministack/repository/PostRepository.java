@@ -8,5 +8,5 @@ public interface PostRepository extends CrudRepository<PostEnity,Integer> {
     Iterable<PostEnity>findTop10ByOrderByIdDesc();
 
  //   Iterable<PostEnity> findAllUsersPosts(int userId);
-    void deleteAllById(int id);
+    void deleteById(int id);
 }
