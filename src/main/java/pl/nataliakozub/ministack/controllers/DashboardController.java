@@ -24,7 +24,7 @@ public class DashboardController {
         if (!sessionService.isLogin())
             return "redirect:/user/login";
       if(sessionService.isAdmin())
-        model.addAttribute("isAdmin",sessionService.isAdmin());
+        model.addAttribute("isAdmin","logged as admin");
         model.addAttribute("posts",postService.getAllPosts());
         return "dashboard";
     }

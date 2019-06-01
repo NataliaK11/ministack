@@ -36,16 +36,15 @@ public class PostController {
         return "redirect:/user/dashboard";
     }
 
-    @DeleteMapping(value = "/post/{id}/delete")
-    public String deletePost(@PathVariable("id") int idx, final RedirectAttributes redirectAttributes) {
+
+    @GetMapping("/post/{id}/delete")
+    public String deletePost(@PathVariable  String id, RedirectAttributes redirectAttributes) {
 
         //logger.debug("Delete user with Id {}", idx);
 
-        redirectAttributes.addFlashAttribute("css", "Success");
-        redirectAttributes.addFlashAttribute("msg", "The post is deleted");
+        redirectAttributes.addFlashAttribute("postDeleted", "Usunięto post");
 
-        // delete the user
-        postService.deletePostById(idx);
+       //postService.deletePostById(id);
         return "redirect:/user/dashboard";
     }
 }

@@ -66,9 +66,6 @@ public class AuthController {
         }
         boolean isLogged=userService.tryLoginUser(loginForm);
         model.addAttribute("isLogged",isLogged);
-//       boolean isAdmin=userService.isAdmin(loginForm);
-//       if(isLogged&&isAdmin) {
-//           return "redirect:/user/admin";
         if (isLogged){
             return "redirect:/user/dashboard";
         }else return "login";
@@ -82,11 +79,6 @@ public class AuthController {
         return "redirect:/user/login";
     }
 
-    @GetMapping("/user/admin")
-    public String admin(RedirectAttributes redirectAttributes){
-        redirectAttributes.addFlashAttribute("isAdmin","Zalogowano jako admin");
-        return "redirect:/user/dashboard";
-    }
 
 }
 

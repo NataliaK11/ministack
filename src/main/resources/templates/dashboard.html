@@ -13,6 +13,7 @@
     <div style="width: 60%; margin-top: 100px">
         <div th:if="${info!=null}" th:text="${info}" class="alert alert-success" role="alert">
         </div>
+        <div th:if="${postDeleted}" th:text="${postDeleted}" class="alert alert-success" role="alert"></div>
 
 
 
@@ -28,8 +29,7 @@
                     <p class="card-text" style="overflow:hidden;" th:text="${post.getContent()}"></p>
                     <a href="#" class="btn btn-primary">Comment</a>
                     <td> <div th:if="${isAdmin}">
-                    <spring:url value="/post/${post.getId()}/delete" var="deletePost"/>
-                    <button class="btn btn-danger" onclick="this.disabled=true;removePost()">Delete</button>
+                    <a href="/post/${post.getId()}/delete" class="btn btn-danger">Delete</a>
 
                     </div> <br/>
 
