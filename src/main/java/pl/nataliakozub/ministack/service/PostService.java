@@ -9,6 +9,7 @@ import pl.nataliakozub.ministack.entity.UserEntity;
 import pl.nataliakozub.ministack.repository.CommentRepository;
 import pl.nataliakozub.ministack.repository.PostRepository;
 import pl.nataliakozub.ministack.repository.UserRepository;
+import pl.nataliakozub.model.dto.PostDto;
 import pl.nataliakozub.model.form.CommentForm;
 import pl.nataliakozub.model.form.PostForm;
 
@@ -75,5 +76,17 @@ public class PostService {
     public void deleteCommentById(int commentId) {
         commentRepository.deleteById(commentId);
     }
+
+    public Iterable<PostEnity> getAllPostsBySearchText(String text){
+       return postRepository.getAllByText(text);
+    }
+    public Optional<PostEnity> getOnePostById(int id){
+        return postRepository.findById(id);
+    }
+
+    public PostEnity addPostDto(PostDto postDto){
+        return postRepository.save(PostDto.convertToEntity(postDto));
+    }
+
 }
 

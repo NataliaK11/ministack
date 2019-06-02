@@ -1,5 +1,6 @@
 package pl.nataliakozub.ministack.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.Generated;
@@ -23,8 +24,10 @@ public class UserEntity {
     @Id
     @GeneratedValue
     private int id;
+    @JsonIgnore
     private String email;
     private String nickname;
+    @JsonIgnore
     private String password;
    // private String type;
 @Column(name= "account_type")
@@ -39,5 +42,6 @@ public UserEntity(RegisterForm registerForm){
     this.email=registerForm.getEmail();
     this.nickname=registerForm.getNickname();
     this.password=registerForm.getPassword();
+    this.accountType=AccountType.USER;
 }
 }

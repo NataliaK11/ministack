@@ -19,8 +19,8 @@
                 <a th:if="${!userSession.isLogin()}" class="nav-link" href="/user/login">zaloguj</a>
             </li>
         </ul>
-        <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Wpisz frazę">
+        <form action="/user/dashboard/search" class="form-inline my-2 my-lg-0">
+            <input name="searchText" class="form-control mr-sm-2" type="search" placeholder="Wpisz frazę">
             <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Szukaj</button>
 
         </form>

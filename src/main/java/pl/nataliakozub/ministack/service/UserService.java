@@ -1,5 +1,6 @@
 package pl.nataliakozub.ministack.service;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.stereotype.Service;
@@ -56,5 +57,11 @@ public class UserService {
 
     public UserEntity getUser(int id) {
         return userRepository.findById(id).orElseThrow(IllegalArgumentException::new);
+    }
+    public Optional<UserEntity>findUserById(int id){
+        return userRepository.findById(id);
+    }
+    public boolean isUserExist(int id){
+        return userRepository.isUserExist(id);
     }
 }

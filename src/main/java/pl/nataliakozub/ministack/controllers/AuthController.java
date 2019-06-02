@@ -39,7 +39,6 @@ public class AuthController {
             return "register";
         }
 
-
         boolean isRegistered = userService.registerUser(registerForm);
         if (isRegistered) {
             return "redirect:/user/login";
