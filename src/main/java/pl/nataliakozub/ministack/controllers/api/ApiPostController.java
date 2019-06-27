@@ -25,6 +25,7 @@ public class ApiPostController {
     UserService userService;
 
     private final String API_KEY="jfn0e6junw4oien2fioa1fkmika546646464+694";
+
     @GetMapping("/post")
     public ResponseEntity getAllPosts() {
         return ResponseEntity.ok(
